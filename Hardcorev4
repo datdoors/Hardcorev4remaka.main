@@ -1,0 +1,77 @@
+--------------------------------------------------
+-- HARDCORE REMAKE FULL LOADER
+-- made by smile and tuffmu
+--------------------------------------------------
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = Players.LocalPlayer
+
+--------------------------------------------------
+-- DOORS CAPTION (GỐC)
+--------------------------------------------------
+local caption = require(
+	player.PlayerGui
+	.MainUI
+	.Initiator
+	.Main_Game
+).caption
+
+caption("hardcore v4 remake successfully loaded", true)
+task.wait(6)
+
+--------------------------------------------------
+-- LOAD HARDCORE REMAKE (SCRIPT CHÍNH)
+--------------------------------------------------
+pcall(function()
+	loadstring(game:HttpGet(
+		"https://raw.githubusercontent.com/datdoors/hardcoreremake.main/refs/heads/main/Hardcore"
+	))()
+end)
+
+--------------------------------------------------
+-- ENTITY PACK (GIỮ NGUYÊN)
+--------------------------------------------------
+local EntityURLs = {
+	-- Greed
+	"https://raw.githubusercontent.com/trungdepth-dot/Entity-greed/refs/heads/main/Greed-update",
+
+	-- Shocker
+	"https://raw.githubusercontent.com/vct0721/Doors-Stuff/refs/heads/main/Entities/Shocker",
+
+	-- Munci
+	"https://raw.githubusercontent.com/Junbbinopro/Munci-entity/refs/heads/main/Munci-20",
+
+	-- Pastefy entity
+	"https://pastefy.app/ofutwkjb/raw",
+
+	-- Fragmented v5 (rất khó)
+	"https://raw.githubusercontent.com/talales/Nhankg/refs/heads/main/fragmented%20v5"
+}
+
+--------------------------------------------------
+-- LOAD ENTITY SONG SONG + DELAY
+--------------------------------------------------
+for _, url in ipairs(EntityURLs) do
+	task.spawn(function()
+		pcall(function()
+			loadstring(game:HttpGet(url))()
+		end)
+	end)
+	task.wait(math.random(2,4))
+end
+
+--------------------------------------------------
+-- QUA CỬA 1 → CAPTION
+--------------------------------------------------
+local LatestRoom = ReplicatedStorage.GameData.LatestRoom
+local done = false
+
+LatestRoom.Changed:Connect(function(room)
+	if room == 1 and not done then
+		done = true
+		caption("made by smile and tuffmu", true)
+		task.wait(4)
+		caption("good luck!", true)
+	end
+end)
